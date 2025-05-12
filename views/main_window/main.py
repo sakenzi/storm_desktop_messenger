@@ -1,9 +1,10 @@
 from PyQt5.QtWidgets import (QWidget, QApplication, QMainWindow, QVBoxLayout, QLabel, QHBoxLayout,
-                             QPushButton, )
+                             QPushButton, QComboBox)
 from PyQt5.QtCore import (QSize,)
 from PyQt5.QtGui import (QIcon, )
 import sys
 import os
+from PyQt5.QtCore import Qt
 
 
 def resource_path(relative_path):
@@ -63,7 +64,7 @@ class MainWindow(QMainWindow):
         self.icons_widget = QWidget()
         self.icons_widget.setStyleSheet("""
             QWidget {
-                background-color: #fafcfb;
+                background-color: white;
             }
         """)
         self.icons_layout = QHBoxLayout()
@@ -71,17 +72,40 @@ class MainWindow(QMainWindow):
         self.icons_widget.setLayout(self.icons_layout)
         self.chats_layout.setStretch(0, 0)
 
+        self.x_widget =QWidget()
+        self.x_widget.setStyleSheet("""
+            QWidget {
+                background-color: white;
+            }
+        """)
+        self.x_layout = QHBoxLayout()
+        self.chats_layout.addWidget(self.x_widget)
+        self.x_widget.setLayout(self.x_layout)
+        self.chats_layout.setStretch(1, 0)
+
+        self.about_widget = QWidget()
+        self.about_widget.setStyleSheet("""
+            QWidget {
+                background-color: white;
+            }
+        """)
+        self.about_layout = QHBoxLayout()
+        self.chats_layout.addWidget(self.about_widget)
+        self.about_widget.setLayout(self.about_layout)
+        self.chats_layout.setStretch(3, 2)
+
         self.message_widget = QWidget()
         self.message_widget.setStyleSheet("""
             QWidget {
-                background-color: #fafcfb;
+                background-color: white;
             }
         """)
         self.message_layout = QHBoxLayout()
         self.chats_layout.addWidget(self.message_widget)
         self.message_widget.setLayout(self.message_layout)
-        self.chats_layout.setStretch(1, 2)
+        self.chats_layout.setStretch(3, 1)
 
+        #Иконки
         self.favourite_button = QPushButton()
         self.favourite_button.setFixedSize(50, 50)
         self.favourite_button.setStyleSheet("""
@@ -129,6 +153,86 @@ class MainWindow(QMainWindow):
         self.customization_button.setIcon(QIcon(resource_path("icons/597182.png")))
         self.customization_button.setIconSize(QSize(32, 32))
         self.icons_layout.addWidget(self.customization_button)
+
+        #Кнопка добавить
+        self.x_label = QLabel("Чаты")
+        self.x_label.setStyleSheet("""
+            QLabel {
+                color: #08090a;
+                font-size: 30px;
+                font-family: 'Arial';
+                font-weight: bold;
+                padding-left: 15px;
+            }
+        """)
+        self.x_layout.addWidget(self.x_label)
+
+        self.x_box = QComboBox()
+        self.x_box.setFixedSize(50, 50)
+        self.x_box.setStyleSheet("""
+            QComboBox {
+                background-color: #781778;
+                color: white;
+                border-radius: 24px;  
+                font-size: 16px;
+                padding-right: 20px;
+            }
+            QComboBox::drop-down {
+                border: none;
+            }
+        """)
+        icon = QIcon(resource_path("icons/plus-math.png"))
+        self.x_box.addItem(icon, "")
+        self.x_layout.addWidget(self.x_box)
+
+        #Прочее
+        self.all_button = QPushButton("Все")
+        self.all_button.setStyleSheet("""
+            QPushButton { background-color: white; color: #736d73; border-radius: 10px; padding: 10px; font-size: 18px; border: none; }
+            QPushButton:hover { background-color: white; }
+            QPushButton:pressed { background-color: white; }
+            }
+        """)
+        self.about_layout.addWidget(self.all_button)
+
+        self.private_button = QPushButton("Приватные")
+        self.private_button.setStyleSheet("""
+            QPushButton { background-color: white; color: #736d73; border-radius: 10px; padding: 10px; font-size: 18px; border: none; }
+            QPushButton:hover { background-color: white; }
+            QPushButton:pressed { background-color: white; }
+            }
+        """)
+        self.about_layout.addWidget(self.private_button)
+
+        self.common_button = QPushButton("Общие")
+        self.common_button.setStyleSheet("""
+            QPushButton { background-color: white; color: #736d73; border-radius: 10px; padding: 10px; font-size: 18px; border: none; }
+            QPushButton:hover { background-color: white; }
+            QPushButton:pressed { background-color: white; }
+            }
+        """)
+        self.about_layout.addWidget(self.common_button)
+
+        self.more_box = QComboBox()
+        self.more_box.addItem("Еще ▼")
+        self.more_box.setFixedHeight(50)  
+        self.more_box.setStyleSheet("""
+            QComboBox {
+                background-color: white;
+                color: #736d73;
+                border-radius: 10px;
+                padding: 10px;
+                font-size: 18px;
+                border: none;
+            }
+            QComboBox::drop-down {
+                border: none;
+            }
+            QComboBox::down-arrow {
+                image: none;
+            }
+        """)
+        self.about_layout.addWidget(self.more_box)
 
         #Это у нас чат
         self.chat_label = QLabel("Здесь будут чат")
