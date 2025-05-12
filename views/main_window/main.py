@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import (QWidget, QApplication, QMainWindow, QVBoxLayout, QLabel, QHBoxLayout,
-                             QPushButton, QComboBox)
+                             QPushButton, QComboBox, QLineEdit, QAction, QMenu)
 from PyQt5.QtCore import (QSize,)
-from PyQt5.QtGui import (QIcon, )
+from PyQt5.QtGui import (QIcon, QPixmap)
 import sys
 import os
 from PyQt5.QtCore import Qt
@@ -94,6 +94,17 @@ class MainWindow(QMainWindow):
         self.about_widget.setLayout(self.about_layout)
         self.chats_layout.setStretch(3, 2)
 
+        self.search_widget = QWidget()
+        self.search_widget.setStyleSheet("""
+            QWidget {
+                background-color: white;
+            }
+        """)
+        self.search_layout = QHBoxLayout()
+        self.chats_layout.addWidget(self.search_widget)
+        self.search_widget.setLayout(self.search_layout)
+        self.chats_layout.setStretch(3, 0)
+
         self.message_widget = QWidget()
         self.message_widget.setStyleSheet("""
             QWidget {
@@ -103,7 +114,7 @@ class MainWindow(QMainWindow):
         self.message_layout = QHBoxLayout()
         self.chats_layout.addWidget(self.message_widget)
         self.message_widget.setLayout(self.message_layout)
-        self.chats_layout.setStretch(3, 1)
+        self.chats_layout.setStretch(4, 1)
 
         #Иконки
         self.favourite_button = QPushButton()
@@ -162,27 +173,30 @@ class MainWindow(QMainWindow):
                 font-size: 30px;
                 font-family: 'Arial';
                 font-weight: bold;
-                padding-left: 15px;
+                padding-left: 5px;
             }
         """)
         self.x_layout.addWidget(self.x_label)
 
-        self.x_box = QComboBox()
-        self.x_box.setFixedSize(50, 50)
+        self.x_box = QPushButton()
+        self.x_box.setFixedSize(45, 45)
         self.x_box.setStyleSheet("""
-            QComboBox {
+            QPushButton {
                 background-color: #781778;
                 color: white;
-                border-radius: 24px;  
-                font-size: 16px;
-                padding-right: 20px;
+                border-radius: 22px;  
+                font-size: 14px;
+                padding: 0px;
             }
-            QComboBox::drop-down {
+            QPushButton::drop-down {
                 border: none;
+                width: 0px;
+            }
+            QPushButton::down-arrow {
+                image: none;
             }
         """)
-        icon = QIcon(resource_path("icons/plus-math.png"))
-        self.x_box.addItem(icon, "")
+        self.x_box.setIcon(QIcon(resource_path("icons/plus-math.png")))
         self.x_layout.addWidget(self.x_box)
 
         #Прочее
@@ -227,6 +241,7 @@ class MainWindow(QMainWindow):
             }
             QComboBox::drop-down {
                 border: none;
+                width: 0px; /* скрываем стрелку */
             }
             QComboBox::down-arrow {
                 image: none;
@@ -234,9 +249,62 @@ class MainWindow(QMainWindow):
         """)
         self.about_layout.addWidget(self.more_box)
 
+        #Search
+        self.search_input = QLineEdit()
+        self.search_input.setPlaceholderText("Поиск людей и каналов...")
+        self.search_input.setStyleSheet("""
+            QLineEdit {
+                background-color: #FFFFFF;
+                border: 1px solid #E0E0E0;
+                border-radius: 8px;
+                padding: 15px;
+                font-size: 18px;
+                color: #333333;
+            }
+        """)
+        search_icon = QIcon(resource_path("icons/icons8-поиск.svg"))  
+        search_action = QAction(search_icon, "", self.search_input)
+        self.search_input.addAction(search_action, QLineEdit.LeadingPosition)
+        self.search_layout.addWidget(self.search_input)
+
+        #Чат
+        self.message_label = QLabel()
+        self.message_layout.addWidget(self.message_label)
+
         #Это у нас чат
-        self.chat_label = QLabel("Здесь будут чат")
-        self.chat_layout.addWidget(self.chat_label)
+        self.phone_widget = QWidget()
+        self.phone_widget.setStyleSheet("""
+            QWidget {
+                background-color: white;
+            }
+        """)
+        self.phone_layout = QHBoxLayout()
+        self.chat_layout.addWidget(self.phone_widget)
+        self.phone_widget.setLayout(self.phone_layout)
+        self.chat_layout.setStretch(0, 0)
+
+        self.info_widget = QWidget()
+        self.info_widget.setStyleSheet("""
+            QWidget {
+                background-color: #c2bfb8;
+            }
+        """)
+        self.info_layout = QHBoxLayout()
+        self.chat_layout.addWidget(self.info_widget)
+        self.info_widget.setLayout(self.info_layout)
+        self.chat_layout.setStretch(0, 0)
+
+        self.name_button = QPushButton("Маша Машаева")
+        self.name_button.setStyleSheet("""
+            QPushButton {
+                color: #08090a;
+                font-size: 30px;
+                font-family: 'Arial';
+                font-weight: bold;
+                padding-left: 15px;
+            }
+        """)
+        self.phone_layout.addWidget(self.name_button)
 
         #Это у нас уведомление
         self.notification_label = QLabel("Здесь будут уведомление")
