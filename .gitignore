@@ -174,3 +174,5 @@ cython_debug/
 .pypirc
 
 views/main_window/icons/icons
+views/auth_window/photo
+views/auth_window/icons/icons
