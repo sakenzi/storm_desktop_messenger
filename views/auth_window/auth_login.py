@@ -84,6 +84,8 @@ class AuthWindow(QMainWindow):
         text_label.setStyleSheet(Styles['emblem_label'])
         emblem_layout.addWidget(text_label)
 
+        self.auth_login_layout.setStretch(0, 0)
+
     def _welcome_speech(self):
         speech_widget = QWidget()
         speech_widget.setStyleSheet(Styles['emblem_widget'])
@@ -94,6 +96,8 @@ class AuthWindow(QMainWindow):
         speech_label = QLabel("Nice to see you again")
         speech_label.setStyleSheet(Styles['speech_label'])
         speech_layout.addWidget(speech_label)
+
+        self.auth_login_layout.setStretch(1, 1)
     
     def _login_label(self):
         login_widget = QWidget()
@@ -105,6 +109,8 @@ class AuthWindow(QMainWindow):
         login_label = QLabel("Login")
         login_label.setStyleSheet(Styles['login_label'])
         login_layout.addWidget(login_label)
+
+        self.auth_login_layout.setStretch(2, 0)
 
     def _login_input(self):
         login_input_widget = QWidget()
@@ -118,6 +124,8 @@ class AuthWindow(QMainWindow):
         login_input.setStyleSheet(Styles['login_input'])
         login_input_layout.addWidget(login_input)
 
+        self.auth_login_layout.setStretch(3, 0)
+
     def _password_label(self):
         password_widget = QWidget()
         password_widget.setStyleSheet(Styles['emblem_widget'])
@@ -128,6 +136,8 @@ class AuthWindow(QMainWindow):
         password_label = QLabel("Password")
         password_label.setStyleSheet(Styles['login_label'])
         password_layout.addWidget(password_label)
+
+        self.auth_login_layout.setStretch(4, 0)
 
     def _password_input(self):
         password_input_widget = QWidget()
@@ -141,6 +151,8 @@ class AuthWindow(QMainWindow):
         password_input.setStyleSheet(Styles['login_input'])
         password_input_layout.addWidget(password_input)
 
+        self.auth_login_layout.setStretch(5, 0)
+
     def _sign_in(self):
         sign_in_widget = QWidget()
         sign_in_widget.setStyleSheet(Styles['emblem_widget'])
@@ -151,6 +163,8 @@ class AuthWindow(QMainWindow):
         sign_in_button = QPushButton("Sign In")
         sign_in_button.setStyleSheet(Styles['sign_in_button'])
         sign_in_layout.addWidget(sign_in_button)
+
+        self.auth_login_layout.setStretch(6, 0)
     
     def _connect_register(self):
         connect_register_widget = QWidget()
@@ -166,6 +180,8 @@ class AuthWindow(QMainWindow):
         connect_register_button = QPushButton("Sign up now")
         connect_register_button.setStyleSheet(Styles['connect_register_button'])
         connect_register_layout.addWidget(connect_register_button)
+
+        self.auth_login_layout.setStretch(7, 2)
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
