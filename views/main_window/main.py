@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import (
     QWidget, QApplication, QMainWindow, QVBoxLayout, QHBoxLayout,
-    QPushButton, QComboBox, QLineEdit, QAction, QLabel
+    QPushButton, QComboBox, QLineEdit, QAction, QLabel, QMenu
 )
 from PyQt5.QtCore import QSize
 from PyQt5.QtGui import QIcon
@@ -150,7 +150,10 @@ class MainWindow(QMainWindow):
 
         # Комбобокс "Ещё"
         more_box = QComboBox()
-        more_box.addItem("Еще ▼")
+        more_box.addItem("Заявки")
+        more_box.addItem("Мои заявки")
+        more_box.addItem("Друзья")
+        # more_box.model().item(0).setEnabled(False)
         more_box.setFixedHeight(50)
         more_box.setStyleSheet(Styles['combo_box'])
         filter_layout.addWidget(more_box)

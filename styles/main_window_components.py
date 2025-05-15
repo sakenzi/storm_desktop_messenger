@@ -60,6 +60,7 @@ Styles = {
         }
         QComboBox::drop-down { border: none; width: 0px; }
         QComboBox::down-arrow { image: none; }
+        QComboBox QAbstractItemView { border: 1px solid #631454; border-radius: 10px; background-color: #d6c7d3; selection-background-color: #edcae6; padding: 5px; font-size: 16px; }
     """,
     'search_input': """
         QLineEdit {
