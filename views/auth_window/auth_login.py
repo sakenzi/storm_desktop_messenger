@@ -61,6 +61,10 @@ class AuthWindow(QMainWindow):
         self._welcome_speech()
         self._login_label()
         self._login_input()
+        self._password_label()
+        self._password_input()
+        self._sign_in()
+        self._connect_register()
 
     def _create_emblem_panel(self):
         emblem_widget = QWidget()
@@ -113,6 +117,55 @@ class AuthWindow(QMainWindow):
         login_input.setPlaceholderText("Username ")
         login_input.setStyleSheet(Styles['login_input'])
         login_input_layout.addWidget(login_input)
+
+    def _password_label(self):
+        password_widget = QWidget()
+        password_widget.setStyleSheet(Styles['emblem_widget'])
+        password_layout = QHBoxLayout()
+        password_widget.setLayout(password_layout)
+        self.auth_login_layout.addWidget(password_widget)
+
+        password_label = QLabel("Password")
+        password_label.setStyleSheet(Styles['login_label'])
+        password_layout.addWidget(password_label)
+
+    def _password_input(self):
+        password_input_widget = QWidget()
+        password_input_widget.setStyleSheet(Styles['emblem_widget'])
+        password_input_layout = QHBoxLayout()
+        password_input_widget.setLayout(password_input_layout)
+        self.auth_login_layout.addWidget(password_input_widget)
+
+        password_input = QLineEdit()
+        password_input.setPlaceholderText("Enter password")
+        password_input.setStyleSheet(Styles['login_input'])
+        password_input_layout.addWidget(password_input)
+
+    def _sign_in(self):
+        sign_in_widget = QWidget()
+        sign_in_widget.setStyleSheet(Styles['emblem_widget'])
+        sign_in_layout = QHBoxLayout()
+        sign_in_widget.setLayout(sign_in_layout)
+        self.auth_login_layout.addWidget(sign_in_widget)
+
+        sign_in_button = QPushButton("Sign In")
+        sign_in_button.setStyleSheet(Styles['sign_in_button'])
+        sign_in_layout.addWidget(sign_in_button)
+    
+    def _connect_register(self):
+        connect_register_widget = QWidget()
+        connect_register_widget.setStyleSheet(Styles['emblem_widget'])
+        connect_register_layout = QHBoxLayout()
+        connect_register_widget.setLayout(connect_register_layout)
+        self.auth_login_layout.addWidget(connect_register_widget)
+
+        connect_register_label = QLabel("Don't have an account?")
+        connect_register_label.setStyleSheet(Styles['connect_register_label'])
+        connect_register_layout.addWidget(connect_register_label)
+
+        connect_register_button = QPushButton("Sign up now")
+        connect_register_button.setStyleSheet(Styles['connect_register_button'])
+        connect_register_layout.addWidget(connect_register_button)
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
