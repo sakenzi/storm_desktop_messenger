@@ -6,6 +6,7 @@ import json
 class AuthWindowController:
     def __init__(self, window=None):
         self.window = window
+        self.token = None
 
     def handle_login(self, username, password):
         if not username or not password:
@@ -14,6 +15,12 @@ class AuthWindowController:
         
         data = AuthLoginData(username, password).to_dict()
         response = login_request(data)
+
+        if response:
+            json_response = response.json()
+            if "access_token" in json_response:
+                self.token = json_response["access_token"]
+                print(f"Токен: {self.token}")
 
         if response is not None:
             if response.status_code == 200:
@@ -34,6 +41,12 @@ class AuthWindowController:
         data = AuthRegisterData(username, fullname, password).to_dict()
         response = register_request(data)
 
+        if response:
+            json_response = response.json()
+            if "access_token" in json_response:
+                self.token = json_response["access_token"]
+                print(f"Токен: {self.token}")
+
         if response is not None:
             if response.status_code == 200:
                 print("Успешная регистрация")
@@ -44,3 +57,6 @@ class AuthWindowController:
                 return False, f"Ошибка регистраций: {response.status_code}"
         else:
             return False, "Ошибка сети или сервера"
+        
+    def get_token(self):
+        return self.token

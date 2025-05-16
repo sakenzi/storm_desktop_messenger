@@ -8,12 +8,13 @@ import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../')))
 from styles.main_window_components import Styles
-from icons.icon import ICONS
+from views.main_window.icons.icon import ICONS
 
 
 class MainWindow(QMainWindow):
-    def __init__(self):
+    def __init__(self, app_manager):
         super().__init__()
+        self.app_manager = app_manager
         self._setup_window()
         self._setup_layouts()
         self._setup_chats_panel()

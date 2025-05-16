@@ -11,8 +11,9 @@ from controllers.auth_controller import AuthWindowController
 
 
 class AuthRegisterWindow(QMainWindow):
-    def __init__(self):
+    def __init__(self, app_manager):
         super().__init__()
+        self.app_manager = app_manager
         self._setup_window()
         self._setup_layouts()
         self._wallpaper_panel()
@@ -204,6 +205,11 @@ class AuthRegisterWindow(QMainWindow):
             self.fullname_input.text(),
             self.password_input.text()
         )
+        if success:
+            token = self.controller.get_token()
+            self.app_manager.set_token(token)
+            self.app_manager.show_main_window()
+            self.hide()
 
 # if __name__ == "__main__":
 #     app = QApplication(sys.argv)

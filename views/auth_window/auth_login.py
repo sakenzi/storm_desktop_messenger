@@ -20,7 +20,6 @@ class AuthLoginWindow(QMainWindow):
         self._wallpaper_panel()
         self._setup_auth_login_panel()
         self.controller = AuthWindowController()
-        self.register = AuthRegisterWindow()
 
     def _setup_window(self):
         self.setWindowTitle("Аутентификация")
@@ -197,10 +196,15 @@ class AuthLoginWindow(QMainWindow):
             self.login_input.text(),
             self.password_input.text()
         )
+        if success:
+            token = self.controller.get_token()
+            self.app_manager.set_token(token)
+            self.app_manager.show_main_window()
+            self.hide()
 
     def on_register_button_clicked(self):
-        self.register.show()
-        self.close()
+        self.app_manager.show_register_window()
+        self.hide()
 
 # if __name__ == "__main__":
 #     app = QApplication(sys.argv)
