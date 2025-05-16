@@ -23,3 +23,21 @@ class AuthLoginData:
             "username": self.username,
             "password": self.password
         }
+    
+
+class SearchUser:
+    def __init__(self, id, username, full_name, online, last_visit):
+        self.id = id
+        self.username = username
+        self.full_name = full_name
+        self.online = online
+        self.last_visit = last_visit
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "username": self.username,
+            "full_name": self.full_name,
+            "online": self.online,
+            "last_visit": self.last_visit
+        }

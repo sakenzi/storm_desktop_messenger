@@ -83,5 +83,9 @@ Styles = {
             font-weight: bold;
             padding-left: 15px;
         }
+    """,
+    'chat_lists': """
+        QWidget { background-color: #2C2F3F; border-radius: 12px; padding: 8px; border: 1px solid #631454;}
+        QLabel  { color: white; }
     """
 }
