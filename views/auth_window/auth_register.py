@@ -7,6 +7,7 @@ import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../')))
 from styles.auth_login_components import Styles
 from icons.icon import ICONS
+from controllers.auth_controller import AuthWindowController
 
 
 class AuthWindow(QMainWindow):
@@ -16,6 +17,7 @@ class AuthWindow(QMainWindow):
         self._setup_layouts()
         self._wallpaper_panel()
         self._setup_auth_login_panel()
+        self.controller = AuthWindowController()
 
     def _setup_window(self):
         self.setWindowTitle("Аутентификация")
@@ -65,7 +67,7 @@ class AuthWindow(QMainWindow):
         self._fullname_input()
         self._password_label()
         self._password_input()
-        self._sign_in()
+        self._sign_up()
 
     def _create_emblem_panel(self):
         emblem_widget = QWidget()
@@ -120,10 +122,10 @@ class AuthWindow(QMainWindow):
         username_input_widget.setLayout(username_input_layout)
         self.auth_login_layout.addWidget(username_input_widget)
 
-        username_input = QLineEdit()
-        username_input.setPlaceholderText("Username ")
-        username_input.setStyleSheet(Styles['login_input'])
-        username_input_layout.addWidget(username_input)
+        self.username_input = QLineEdit()
+        self.username_input.setPlaceholderText("Username ")
+        self.username_input.setStyleSheet(Styles['login_input'])
+        username_input_layout.addWidget(self.username_input)
 
         self.auth_login_layout.setStretch(3, 0)
 
@@ -147,10 +149,10 @@ class AuthWindow(QMainWindow):
         fullname_input_widget.setLayout(fullname_input_layout)
         self.auth_login_layout.addWidget(fullname_input_widget)
 
-        fullname_input = QLineEdit()
-        fullname_input.setPlaceholderText("Full name")
-        fullname_input.setStyleSheet(Styles['login_input'])
-        fullname_input_layout.addWidget(fullname_input)
+        self.fullname_input = QLineEdit()
+        self.fullname_input.setPlaceholderText("Full name")
+        self.fullname_input.setStyleSheet(Styles['login_input'])
+        fullname_input_layout.addWidget(self.fullname_input)
 
         self.auth_login_layout.setStretch(5, 0)
 
@@ -174,26 +176,34 @@ class AuthWindow(QMainWindow):
         password_input_widget.setLayout(password_input_layout)
         self.auth_login_layout.addWidget(password_input_widget)
 
-        password_input = QLineEdit()
-        password_input.setPlaceholderText("Enter password")
-        password_input.setStyleSheet(Styles['login_input'])
-        password_input_layout.addWidget(password_input)
+        self.password_input = QLineEdit()
+        self.password_input.setPlaceholderText("Enter password")
+        self.password_input.setStyleSheet(Styles['login_input'])
+        password_input_layout.addWidget(self.password_input)
 
         self.auth_login_layout.setStretch(7, 0)
 
-    def _sign_in(self):
-        sign_in_widget = QWidget()
-        sign_in_widget.setStyleSheet(Styles['emblem_widget'])
-        sign_in_layout = QHBoxLayout()
-        sign_in_widget.setLayout(sign_in_layout)
-        self.auth_login_layout.addWidget(sign_in_widget)
+    def _sign_up(self):
+        sign_up_widget = QWidget()
+        sign_up_widget.setStyleSheet(Styles['emblem_widget'])
+        sign_up_layout = QHBoxLayout()
+        sign_up_widget.setLayout(sign_up_layout)
+        self.auth_login_layout.addWidget(sign_up_widget)
 
-        sign_in_button = QPushButton("Sign Up")
-        sign_in_button.setStyleSheet(Styles['sign_in_button'])
-        sign_in_layout.addWidget(sign_in_button)
+        sign_up_button = QPushButton("Sign Up")
+        sign_up_button.setStyleSheet(Styles['sign_in_button'])
+        sign_up_layout.addWidget(sign_up_button)
 
         self.auth_login_layout.setStretch(8, 1)
     
+        sign_up_button.clicked.connect(self.on_register_button_clicked)
+        
+    def on_register_button_clicked(self):
+        success, message = self.controller.handle_register(
+            self.username_input.text(),
+            self.fullname_input.text(),
+            self.password_input.text()
+        )
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

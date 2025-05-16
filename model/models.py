@@ -8,7 +8,7 @@ class AuthRegisterData:
     def to_dict(self):
         return {
             "username": self.username,
-            "fullname": self.fullname,
+            "full_name": self.fullname,
             "password": self.password
         }
     

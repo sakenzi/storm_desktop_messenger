@@ -7,6 +7,7 @@ import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../')))
 from styles.auth_login_components import Styles
 from icons.icon import ICONS
+from controllers.auth_controller import AuthWindowController
 
 
 class AuthWindow(QMainWindow):
@@ -16,6 +17,7 @@ class AuthWindow(QMainWindow):
         self._setup_layouts()
         self._wallpaper_panel()
         self._setup_auth_login_panel()
+        self.controller = AuthWindowController()
 
     def _setup_window(self):
         self.setWindowTitle("Аутентификация")
@@ -119,10 +121,10 @@ class AuthWindow(QMainWindow):
         login_input_widget.setLayout(login_input_layout)
         self.auth_login_layout.addWidget(login_input_widget)
 
-        login_input = QLineEdit()
-        login_input.setPlaceholderText("Username ")
-        login_input.setStyleSheet(Styles['login_input'])
-        login_input_layout.addWidget(login_input)
+        self.login_input = QLineEdit()
+        self.login_input.setPlaceholderText("Username ")
+        self.login_input.setStyleSheet(Styles['login_input'])
+        login_input_layout.addWidget(self.login_input)
 
         self.auth_login_layout.setStretch(3, 0)
 
@@ -146,10 +148,10 @@ class AuthWindow(QMainWindow):
         password_input_widget.setLayout(password_input_layout)
         self.auth_login_layout.addWidget(password_input_widget)
 
-        password_input = QLineEdit()
-        password_input.setPlaceholderText("Enter password")
-        password_input.setStyleSheet(Styles['login_input'])
-        password_input_layout.addWidget(password_input)
+        self.password_input = QLineEdit()
+        self.password_input.setPlaceholderText("Enter password")
+        self.password_input.setStyleSheet(Styles['login_input'])
+        password_input_layout.addWidget(self.password_input)
 
         self.auth_login_layout.setStretch(5, 0)
 
@@ -165,6 +167,8 @@ class AuthWindow(QMainWindow):
         sign_in_layout.addWidget(sign_in_button)
 
         self.auth_login_layout.setStretch(6, 0)
+
+        sign_in_button.clicked.connect(self.on_login_button_clicked)
     
     def _connect_register(self):
         connect_register_widget = QWidget()
@@ -182,6 +186,12 @@ class AuthWindow(QMainWindow):
         connect_register_layout.addWidget(connect_register_button)
 
         self.auth_login_layout.setStretch(7, 2)
+    
+    def on_login_button_clicked(self):
+        success, message = self.controller.handle_login(
+            self.login_input.text(),
+            self.password_input.text()
+        )
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
