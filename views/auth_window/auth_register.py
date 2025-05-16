@@ -6,11 +6,11 @@ import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../')))
 from styles.auth_login_components import Styles
-from icons.icon import ICONS
+from views.auth_window.icons.icon import ICONS
 from controllers.auth_controller import AuthWindowController
 
 
-class AuthWindow(QMainWindow):
+class AuthRegisterWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         self._setup_window()
@@ -52,7 +52,7 @@ class AuthWindow(QMainWindow):
 
     def _wallpaper_panel(self):
         wallpaper_label = QLabel()
-        pixmap = QPixmap("photo/chernila_zhidkost_kraska_182805_3840x2400.jpg")
+        pixmap = QPixmap("views/auth_window/photo/chernila_zhidkost_kraska_182805_3840x2400.jpg")
         wallpaper_label.setPixmap(pixmap)
         wallpaper_label.setScaledContents(True)
         wallpaper_label.setFixedSize(1200, 1000)
@@ -205,8 +205,8 @@ class AuthWindow(QMainWindow):
             self.password_input.text()
         )
 
-if __name__ == "__main__":
-    app = QApplication(sys.argv)
-    window = AuthWindow()
-    window.show()
-    sys.exit(app.exec_())
+# if __name__ == "__main__":
+#     app = QApplication(sys.argv)
+#     window = AuthRegisterWindow()
+#     window.show()
+#     sys.exit(app.exec_())

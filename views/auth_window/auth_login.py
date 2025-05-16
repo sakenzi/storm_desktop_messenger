@@ -6,18 +6,21 @@ import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../')))
 from styles.auth_login_components import Styles
-from icons.icon import ICONS
+from views.auth_window.icons.icon import ICONS
 from controllers.auth_controller import AuthWindowController
+from views.auth_window.auth_register import AuthRegisterWindow
 
 
-class AuthWindow(QMainWindow):
-    def __init__(self):
+class AuthLoginWindow(QMainWindow):
+    def __init__(self, app_manager):
         super().__init__()
+        self.app_manager = app_manager
         self._setup_window()
         self._setup_layouts()
         self._wallpaper_panel()
         self._setup_auth_login_panel()
         self.controller = AuthWindowController()
+        self.register = AuthRegisterWindow()
 
     def _setup_window(self):
         self.setWindowTitle("Аутентификация")
@@ -52,7 +55,7 @@ class AuthWindow(QMainWindow):
 
     def _wallpaper_panel(self):
         wallpaper_label = QLabel()
-        pixmap = QPixmap("photo/chernila_zhidkost_kraska_182805_3840x2400.jpg")
+        pixmap = QPixmap("views/auth_window/photo/chernila_zhidkost_kraska_182805_3840x2400.jpg")
         wallpaper_label.setPixmap(pixmap)
         wallpaper_label.setScaledContents(True)
         wallpaper_label.setFixedSize(1200, 1000)
@@ -186,15 +189,21 @@ class AuthWindow(QMainWindow):
         connect_register_layout.addWidget(connect_register_button)
 
         self.auth_login_layout.setStretch(7, 2)
-    
+
+        connect_register_button.clicked.connect(self.on_register_button_clicked)
+
     def on_login_button_clicked(self):
         success, message = self.controller.handle_login(
             self.login_input.text(),
             self.password_input.text()
         )
 
-if __name__ == "__main__":
-    app = QApplication(sys.argv)
-    window = AuthWindow()
-    window.show()
-    sys.exit(app.exec_())
+    def on_register_button_clicked(self):
+        self.register.show()
+        self.close()
+
+# if __name__ == "__main__":
+#     app = QApplication(sys.argv)
+#     window = AuthLoginWindow()
+#     window.show()
+#     sys.exit(app.exec_())
